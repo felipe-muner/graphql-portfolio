@@ -1,22 +1,12 @@
-import { gql, useQuery } from "@apollo/client";
-
-const GET_USER = gql`
-  query ($id: ID!) {
-    getUser(id: $id) {
-      id
-      login
-      name
-      avatar_url
-    }
-  }
-`;
+import {  useQuery } from "@apollo/client";
+import { GET_USER } from "../../graphql-client/queries";
 
 export default function Users({ user }) {
   const { loading, error, data } = useQuery(GET_USER, {
     variables: { id: parseInt(user.id) },
   });
 
-  if( error) console.log(error)
+  if (error) console.log(error);
   if (loading) return <p>Loading ...</p>;
   return <h1>Hello {JSON.stringify(data)}!</h1>;
 }

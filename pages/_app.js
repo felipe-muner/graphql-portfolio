@@ -1,13 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-const client = new ApolloClient({
-  uri: "http://localhost:3000/api/graphql",
-  cache: new InMemoryCache(),
-});
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../graphql-client/queries";
 
-// import { StateProvider } from "../store/store";
+
 export default function MyApp(props) {
   const { Component, pageProps } = props;
 

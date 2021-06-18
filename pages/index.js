@@ -1,16 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-
-const GET_USERS = gql`
-  query {
-    getUsers {
-      id
-      login
-      name
-      avatar_url
-    }
-  }
-`;
+import { GET_USERS } from "../graphql-client/queries";
 
 export default function Index() {
   const { loading, error, data } = useQuery(GET_USERS);
@@ -24,7 +14,6 @@ export default function Index() {
   if (error) throw error;
   if (loading) return <p>Loading ...</p>;
 
-  // console.log(data.getUsers)
   const userList = data.getUsers.map((el) => (
     <li key={el.id}>
       <button onClick={() => handleClick(el)}> Get info</button> {el.id} -{" "}
