@@ -1,15 +1,15 @@
 import { getUsers, getUser } from "../graphql-client/github";
+import { useRouter } from "next/router";
 
 export default function Index({ users }) {
-  console.log(users);
+  const router = useRouter();
+
   const handleClick = async (user) => {
-    const u = await getUser(user);
-    console.log("voltei", u);
+    router.push("/users/" + user.id);
   };
   const usersJSX = users?.map((u) => (
     <li key={u.id}>
-      <button onClick={() => handleClick(u)}> Get info</button>
-      {u.id} - {u.login}
+      <button onClick={() => handleClick(u)}> Get info</button> {u.id} {u.name}
     </li>
   ));
 

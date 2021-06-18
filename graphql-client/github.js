@@ -25,10 +25,11 @@ export async function getUser(user) {
   console.log("getuser ", user);
   const { data } = await client.query({
     query: gql`
-      query {
-        getUser(name: "felipe") {
-          login
+      query ($name: String!) {
+        getUser(name: $name) {
           id
+          login
+          name
           avatar_url
         }
       }
