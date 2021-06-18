@@ -24,17 +24,15 @@ export const resolvers = {
     getUsers: async () => {
       try {
         const users = usersArray;
-        return users
+        return users;
       } catch (error) {
         throw error;
       }
     },
     getUser: async (_, args) => {
-      console.log(args)
+      console.log("args", args);
       try {
-        const user = usersArray.filter(
-          (el) => parseInt(el.id) === parseInt(args.id)
-        );
+        const user = usersArray.find((el) => el.name === args.name);
         return user;
       } catch (error) {
         throw error;
