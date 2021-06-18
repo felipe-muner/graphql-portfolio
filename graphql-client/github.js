@@ -10,6 +10,23 @@ export async function getUsers() {
     query: gql`
       {
         getUsers {
+          id
+          login
+          name
+          avatar_url
+        }
+      }
+    `,
+  });
+  return data.getUsers;
+}
+
+export async function getUser(user) {
+  console.log("getuser", user);
+  const { data } = await client.query({
+    query: gql`
+      query ($name: String!) {
+        getUser(name: $name) {
           login
           id
           avatar_url
@@ -17,6 +34,5 @@ export async function getUsers() {
       }
     `,
   });
-
-  return data.getUsers;
+  return data.getUser;
 }

@@ -1,29 +1,41 @@
-import axios from "axios";
+const usersArray = [
+  {
+    id: 1,
+    name: "felipe",
+    login: "felipe-muner",
+    avatar_url: "http://githubpicture",
+  },
+  {
+    id: 2,
+    name: "felipe2",
+    login: "felipe-muner2",
+    avatar_url: "http://githubpicture2",
+  },
+  {
+    id: 3,
+    name: "felipe3",
+    login: "felipe-muner3",
+    avatar_url: "http://githubpicture3",
+  },
+];
 
 export const resolvers = {
   Query: {
     getUsers: async () => {
       try {
-        const users = await axios.get("https://api.github.com/users");
-        return users.data.map(({ id, login, avatar_url }) => ({
-          id,
-          login,
-          avatar_url,
-        }));
+        const users = usersArray;
+        return users
       } catch (error) {
         throw error;
       }
     },
     getUser: async (_, args) => {
+      console.log(args)
       try {
-        const user = await axios.get(
-          `https://api.github.com/users/${args.name}`
+        const user = usersArray.filter(
+          (el) => parseInt(el.id) === parseInt(args.id)
         );
-        return {
-          id: user.data.id,
-          login: user.data.login,
-          avatar_url: user.data.avatar_url,
-        };
+        return user;
       } catch (error) {
         throw error;
       }
