@@ -1,10 +1,24 @@
+import { gql, useQuery } from "@apollo/client";
+
+const GET_USER = gql`
+  query ($id: ID!) {
+    getUser(id: $id) {
+      id
+      login
+      name
+      avatar_url
+    }
+  }
+`;
+
 export default function Users({ user }) {
-  console.log("felipe");
-  return (
-    <div>
-      <h1>users {user.id}</h1>
-    </div>
-  );
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: { id: parseInt(user.id) },
+  });
+
+  if( error) console.log(error)
+  if (loading) return <p>Loading ...</p>;
+  return <h1>Hello {JSON.stringify(data)}!</h1>;
 }
 
 export async function getStaticPaths() {
@@ -33,7 +47,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  console.log("felipe2222");
   const userId = context.params.id;
 
   return {

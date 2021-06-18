@@ -22,6 +22,7 @@ export async function getUsers() {
 }
 
 export async function getUser(user) {
+  
   console.log("getuser ", user);
   const { data } = await client.query({
     query: gql`

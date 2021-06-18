@@ -20,12 +20,12 @@ export default function Index({ users }) {
   );
 }
 
-export async function getStaticProps() {
-  const users = await getUsers();
+// export async function getStaticProps() {
+//   const users = await getUsers();
 
-  return {
-    props: {
-      users: users,
-    },
-  };
-}
+//   return {
+//     props: {
+//       users: users,
+//     },
+//   };
+// }
