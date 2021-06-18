@@ -22,21 +22,15 @@ const usersArray = [
 export const resolvers = {
   Query: {
     getUsers: async () => {
-      try {
-        const users = usersArray;
-        return users;
-      } catch (error) {
-        throw error;
-      }
+      const users = usersArray;
+      return users;
     },
     getUser: async (_, args) => {
       console.log("args", args);
-      try {
-        const user = usersArray.find((el) => parseInt(el.id) === parseInt(args.id));
-        return user;
-      } catch (error) {
-        throw error;
-      }
+      const user = usersArray.find(
+        (el) => parseInt(el.id) === parseInt(args.id)
+      );
+      return user;
     },
   },
 };

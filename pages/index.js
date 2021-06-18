@@ -1,23 +1,38 @@
-import { getUsers, getUser } from "../graphql-client/github";
+import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 
-export default function Index({ users }) {
+const GET_USERS = gql`
+  query {
+    getUsers {
+      id
+      login
+      name
+      avatar_url
+    }
+  }
+`;
+
+export default function Index() {
+  const { loading, error, data } = useQuery(GET_USERS);
+
   const router = useRouter();
 
   const handleClick = async (user) => {
     router.push("/users/" + user.id);
   };
-  const usersJSX = users?.map((u) => (
-    <li key={u.id}>
-      <button onClick={() => handleClick(u)}> Get info</button> {u.id} {u.name}
+
+  if (error) throw error;
+  if (loading) return <p>Loading ...</p>;
+
+  // console.log(data.getUsers)
+  const userList = data.getUsers.map((el) => (
+    <li key={el.id}>
+      <button onClick={() => handleClick(el)}> Get info</button> {el.id} -{" "}
+      {el.name}
     </li>
   ));
 
-  return (
-    <div>
-      <ul>{usersJSX}</ul>
-    </div>
-  );
+  return <div>{userList}</div>;
 }
 
 // export async function getStaticProps() {
