@@ -1,42 +1,30 @@
-const usersArray = [
+let todos = [
   {
-    id: 1,
-    name: "felipe",
-    login: "felipe-muner",
-    avatar_url: "http://githubpicture",
-  },
-  {
-    id: 2,
-    name: "felipe2",
-    login: "felipe-muner2",
-    avatar_url: "http://githubpicture2",
-  },
-  {
-    id: 3,
-    name: "felipe3",
-    login: "felipe-muner3",
-    avatar_url: "http://githubpicture3",
+    id: 0,
+    text: 'Hello from GraphQL',
+    completed: false,
   },
 ];
 
 export const resolvers = {
   Query: {
-    getUsers: async () => {
-      try {
-        const users = usersArray;
-        return users;
-      } catch (error) {
-        throw error;
-      }
+    todos: () => todos,
+  },
+  Mutation: {
+    createTodo: (parent, args, context, info) => {
+      return todos.push({
+        id: Date.now().toString(),
+        text: args.text,
+        completed: false,
+      });
     },
-    getUser: async (_, args) => {
-      console.log("args", args);
-      try {
-        const user = usersArray.find((el) => el.name === args.name);
-        return user;
-      } catch (error) {
-        throw error;
+    removeTodo: (parent, args, context, info) => {
+      for (let i in todos) {
+        if (todos[i].id === args.id) {
+          todos.splice(i, 1);
+        }
       }
+      return args.id;
     },
   },
 };
