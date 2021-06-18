@@ -7,10 +7,15 @@ export const typeDefs = gql`
     completed: Boolean
   }
   type Query {
+<<<<<<< HEAD
     todos: [Todo]!
   }
   type Mutation {
     createTodo(text: String!):String
     removeTodo(id: String!):String
+=======
+    getUsers: [User]
+    getUser(id: ID!): User!
+>>>>>>> newmaster
   }
 `;
